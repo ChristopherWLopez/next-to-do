@@ -5,6 +5,11 @@ import TodoItem from "./components/TodoItem";
 function getMyTodo(){
   return prisma.todo.findMany()
 }
+
+async function toggleTodo(id: string, complete: boolean){
+  "use server"
+  console.log(id, complete);
+}
 export default async function Home(){
   
   await prisma.todo.create({
@@ -22,7 +27,7 @@ export default async function Home(){
   </header>
   <ul>
     {todos.map(todo => (
-      <TodoItem key={todo.id} {...todo}/>
+      <TodoItem key={todo.id} {...todo} toggleTodo={toggleTodo}/>
     ))}
   </ul>
   </>
